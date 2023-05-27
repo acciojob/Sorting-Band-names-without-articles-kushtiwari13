@@ -1,20 +1,15 @@
-//your code here
-function sortBandNames(bandNames) {
-  let modifiedBandNames = [];
+const bands = ["The Rolling Stones", "Pink Floyd", "The Beatles", "Led Zeppelin", "Nirvana"];
 
-  for (let i = 0; i < bandNames.length; i++) {
-    let modifiedName = bandNames[i].replace(/^(a|an|the)\s+/i, '');
-    modifiedBandNames.push(modifiedName);
-  }
-
-  modifiedBandNames.sort();
-
-  let ulElement = document.getElementById('band');
-  ulElement.innerHTML = '';
-
-  for (let i = 0; i < modifiedBandNames.length; i++) {
-    let liElement = document.createElement('li');
-    liElement.textContent = modifiedBandNames[i];
-    ulElement.appendChild(liElement);
-  }
+function stripArticle(name) {
+  return name.replace(/^(a |an |the )/i, "").trim();
 }
+
+const sortedBands = bands.sort((a, b) => stripArticle(a) > stripArticle(b) ? 1 : -1);
+
+// Render the sorted band names without articles
+const ul = document.querySelector("ul");
+sortedBands.forEach(band => {
+  const li = document.createElement("li");
+  li.textContent = band;
+  ul.appendChild(li);
+});
